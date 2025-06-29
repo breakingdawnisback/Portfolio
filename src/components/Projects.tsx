@@ -6,43 +6,21 @@ import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { portfolioData } from '@/lib/portfolioData';
 import { ArrowUpRight } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion'; // Import useScroll, useTransform
-import { useRef, useEffect, useState } from 'react'; // Import useRef, useEffect, useState
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 
 export function Projects() {
   const reversedProjects = [...portfolioData.projects.items].reverse();
   const containerRef = useRef(null);
-  const [containerHeight, setContainerHeight] = useState('auto'); // State for dynamic height
+  const [containerHeight, setContainerHeight] = useState('auto');
 
-  // Calculate height dynamically based on number of cards and desired stickiness
-  // This is an estimation. You might need to fine-tune `cardScrollAmount`
-  // based on the actual height of your cards and how much overlap you want.
   useEffect(() => {
     if (reversedProjects.length > 0 && containerRef.current) {
-      // Estimate the height of a single card's content (rough estimate)
-      // You can get this more accurately by measuring a card.
-      const estimatedCardHeight = window.innerHeight * 0.8; // Example: 80% of viewport height
-      const desiredOverlap = 100; // Pixels each card is "pushed up" by the next
-
-      // Total scrollable height for all cards to stick and unstick
-      // (Number of cards - 1) * (height each card takes up in scroll) + (height of last card visible)
-      // A common pattern is each card takes up one viewport height of scroll
-      const calculatedHeight = (reversedProjects.length * window.innerHeight) + (estimatedCardHeight / 2); // Adjust multiplier as needed
-      
-      // Let's refine this to make it more generic:
-      // The total height of the container should be such that each card has
-      // its own "scroll window" within the parent.
-      // E.g., if you want each card to fully reveal, and then stay sticky for
-      // say, 50vh before the next card pushes it, and you have N cards.
-      // Total Height = (N-1) * (sticky scroll distance) + (last card's height)
-      // For a full reveal, each card needs roughly 100vh of scroll.
-      
-      const scrollHeightPerCard = window.innerHeight * 0.8; // Example: Each card needs 80vh of scroll to fully transition
-      const totalScrollHeightNeeded = reversedProjects.length * scrollHeightPerCard;
-
-      setContainerHeight(`${totalScrollHeightNeeded}px`); // Set height in pixels
+      const estimatedCardHeight = window.innerHeight * 0.8;
+      const totalScrollHeightNeeded = reversedProjects.length * estimatedCardHeight;
+      setContainerHeight(`${totalScrollHeightNeeded}px`);
     }
-  }, [reversedProjects.length]); // Recalculate if number of projects changes
+  }, [reversedProjects.length]);
 
   return (
     <section id="projects" className="py-12 sm:py-16 md:py-32 bg-background">
@@ -57,42 +35,32 @@ export function Projects() {
           {portfolioData.projects.title}
         </motion.h2>
 
-        {/* Card stack container */}
-        {/* Use the dynamically calculated height */}
         <div 
-          ref={containerRef} // Attach ref to measure
+          ref={containerRef}
           className="relative max-w-7xl mx-auto flex flex-col gap-12 sm:gap-16"
-          style={{ height: containerHeight }} // Apply dynamic height
+          style={{ height: containerHeight }}
         >
           {reversedProjects.map((project, index) => {
-            // Calculate scale and opacity based on scroll progress for a fancier effect
-            // These values might need fine-tuning based on your desired visual.
             const { scrollYProgress } = useScroll({
               target: containerRef,
-              offset: [`start ${100 - (index * 10)}%`, `end ${100 - (index * 10) - 50}%`] // Adjust offsets for sequence
+              offset: [`start ${100 - (index * 10)}%`, `end ${100 - (index * 10) - 50}%`]
             });
 
-            const scale = useTransform(scrollYProgress, [0, 1], [0.8 + (index * 0.05), 1]); // Example: scale up slightly
-            const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.2, 1, 1]); // Example: fade in
+            const scale = useTransform(scrollYProgress, [0, 1], [0.8 + (index * 0.05), 1]);
+            const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.2, 1, 1]);
 
             return (
               <motion.div
                 key={index}
-                className="sticky top-0 w-full" // Ensure it takes full width within its sticky context
-                style={{ 
-                  zIndex: index + 1 // Correct zIndex for reverse order
-                  // You might also use 'top' for a more nuanced sticky effect if cards don't overlap perfectly
-                  // For example, if you want each card to stick a little lower than the previous one:
-                  // top: `${index * 20}px` // Adjust 20px based on desired overlap
-                }}
+                className="sticky top-0 w-full"
+                style={{ zIndex: index + 1 }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
               >
                 <Card className="bg-black rounded-[24px] sm:rounded-[32px] shadow-2xl border border-lime-400 transition-all duration-300 hover:shadow-lime-400/20 hover:shadow-2xl hover:-translate-y-1 overflow-hidden group">
                   <CardContent className="p-4 sm:p-6 md:p-16 flex flex-col md:flex-row items-center gap-6 sm:gap-10">
-                    {/* Left: Text */}
                     <div className="w-full md:w-1/2">
                       <h3 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
                         {project.title}
@@ -124,14 +92,13 @@ export function Projects() {
                         </Button>
                       </div>
                     </div>
-                    {/* Right: Image */}
                     <div className="w-full md:w-1/2 flex justify-center">
                       <Image
                         src={project.image}
                         alt={project.title}
-                        width={600}
-                        height={360}
-                        className="rounded-2xl object-cover w-full max-w-xs sm:max-w-sm md:max-w-full"
+                        width={400}
+                        height={300}
+                        className="rounded-xl object-cover w-full shadow-md"
                       />
                     </div>
                   </CardContent>

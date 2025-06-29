@@ -74,7 +74,7 @@ export function SocialLinks() {
               </button>
             </TooltipTrigger>
             <TooltipContent side="right">
-              <p>Connect with me</p>
+              <p className="text-base font-medium">Connect with me</p>
             </TooltipContent>
           </Tooltip>
           
@@ -103,7 +103,7 @@ export function SocialLinks() {
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent side="right">
-                        <p>{social.name}</p>
+                        <p className="text-base font-medium">{social.name}</p>
                       </TooltipContent>
                     </Tooltip>
                   </motion.div>

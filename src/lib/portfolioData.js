@@ -7,7 +7,7 @@ export const portfolioData = {
     subtitleHighlight: "FULL STACK DEVELOPER",
     subtitlePost: "skilled in building digital solutions using modern web technologies.",
     profileImage: {
-      src: "/images/Nishant-Profile.JPG",
+      src: "/images/Nishant-Profile.jpg",
       alt: "Nishant Kumar",
       width: 160,
       height: 220,

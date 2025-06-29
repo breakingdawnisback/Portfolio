@@ -22,8 +22,7 @@ export function CareerPath() {
         <div className="text-center max-w-2xl mx-auto mb-20">
           <p className="font-script text-4xl text-accent-foreground transform -rotate-6 inline-block mb-6">{pretitle}</p>
           <h2 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-            <span className="block">{titleParts[0]}</span>
-            <span className="block">I've {titleParts[1]}</span>
+            {title}
           </h2>
         </div>
 
