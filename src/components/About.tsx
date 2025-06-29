@@ -5,11 +5,8 @@ export function About() {
   const { pretitle, title, image, stats } = portfolioData.about;
 
   return (
-    <section id="about" className="py-16 md:py-32 bg-background relative overflow-hidden">
-      {/* Vertical line, behind content */}
-      <div className="absolute top-0 left-1/2 w-px h-full bg-border -translate-x-1/2 z-0"></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="about" className="py-16 md:py-32 relative">
+      <div className="container mx-auto px-4">
         {/* Title section */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <p className="font-script text-3xl text-accent-foreground transform -rotate-6 inline-block mb-6">{pretitle}</p>

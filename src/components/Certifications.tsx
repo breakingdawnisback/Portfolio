@@ -14,17 +14,11 @@ const icons: { [key: string]: React.ReactNode } = {
 
 export function Certifications() {
   return (
-    <section id="certifications" className="py-16 md:py-24 bg-background">
+    <section id="certifications" className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <motion.h2 
-          className="text-3xl md:text-4xl font-bold text-center mb-12 text-primary"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           {portfolioData.certifications.title}
-        </motion.h2>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {portfolioData.certifications.items.map((cert, index) => (
             <motion.div
@@ -34,18 +28,11 @@ export function Certifications() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="text-center flex flex-col h-full bg-black border-2 border-green-400 transition-all duration-300 hover:shadow-green-400/20 hover:shadow-2xl hover:-translate-y-2">
-
+              <Card className="text-center flex flex-col hover:shadow-lg transition-shadow duration-300">
                 <CardHeader className="flex-grow">
-                  <motion.div 
-                    className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-secondary mb-4"
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
-                    viewport={{ once: true }}
-                  >
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-secondary mb-4">
                     {icons[cert.icon]}
-                  </motion.div>
+                  </div>
                   <CardTitle>{cert.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
