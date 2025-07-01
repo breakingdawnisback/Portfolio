@@ -106,7 +106,7 @@ export function Hero() {
 
         <div className="mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg" className="group text-lg">
-            <a href="/Nishant-Kumar-Resume.pdf" download>
+            <a href="/Resume-Nishant Kumar.pdf" download>
               <Download className="mr-2 h-6 w-6 transition-transform group-hover:-translate-y-1" />
               Download Resume
             </a>
